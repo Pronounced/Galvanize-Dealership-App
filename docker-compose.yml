@@ -1,0 +1,13 @@
+version: '2'
+services:
+  dealership-app:
+    build: ./dealership-app/ClientApp/
+    ports:
+      - '3000:3000'
+    depends_on:
+      - node-server
+    tty: true
+  node-server:
+    build: ./node-server
+    ports:
+      - '3001:3001'
