@@ -1,0 +1,6 @@
+[submodule "dealership-app"]
+	path = dealership-app
+	url = https://github.com/Pronounced/dealership-app
+[submodule "node-server"]
+	path = node-server
+	url = https://github.com/Pronounced/node-server
