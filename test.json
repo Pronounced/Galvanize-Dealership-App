@@ -1,0 +1,9 @@
+[
+  {
+    "_id": "6054e7e26cb43d0008c70f0e",
+    "username": "test",
+    "password": "'1'",
+    "email": "'1@test.com'",
+    "isAdmin": true
+  }
+]
