@@ -10,6 +10,7 @@ services:
     depends_on:
       - node-server
     tty: true
+
   node-server:
     restart: always
     build: 
@@ -22,6 +23,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
   mongo:
     image: mongo
     restart: always
@@ -32,6 +34,7 @@ services:
       - 27017:27017
     volumes:
       - './mongodb:/data/db'
+
   mongo-express:
     image: mongo-express
     restart: always
