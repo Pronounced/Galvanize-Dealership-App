@@ -26,7 +26,7 @@ namespace my_new_app
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "../dealership-app/ClientApp/build";
             });
         }
 
@@ -59,7 +59,7 @@ namespace my_new_app
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "../dealership-app/ClientApp";
 
                 if (env.IsDevelopment())
                 {
