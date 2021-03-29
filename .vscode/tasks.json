@@ -37,6 +37,66 @@
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build: debug",
+      "dependsOn": [
+        "build"
+      ],
+      "dockerBuild": {
+        "tag": "galvanizedealershipapp:dev",
+        "target": "base",
+        "dockerfile": "${workspaceFolder}/dealership-api-dotnet/Dockerfile",
+        "context": "${workspaceFolder}",
+        "pull": true
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/dealership-api-dotnet/my-new-app.csproj"
+      }
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build: release",
+      "dependsOn": [
+        "build"
+      ],
+      "dockerBuild": {
+        "tag": "galvanizedealershipapp:latest",
+        "dockerfile": "${workspaceFolder}/dealership-api-dotnet/Dockerfile",
+        "context": "${workspaceFolder}",
+        "pull": true
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/dealership-api-dotnet/my-new-app.csproj"
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run: debug",
+      "dependsOn": [
+        "docker-build: debug"
+      ],
+      "dockerRun": {
+        "os": "Windows"
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/dealership-api-dotnet/my-new-app.csproj",
+        "enableDebugging": true
+      }
+    },
+    {
+      "type": "docker-run",
+      "label": "docker-run: release",
+      "dependsOn": [
+        "docker-build: release"
+      ],
+      "dockerRun": {
+        "os": "Windows"
+      },
+      "netCore": {
+        "appProject": "${workspaceFolder}/dealership-api-dotnet/my-new-app.csproj"
+      }
     }
   ]
 }
