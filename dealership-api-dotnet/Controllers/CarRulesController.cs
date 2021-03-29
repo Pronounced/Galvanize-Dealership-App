@@ -6,23 +6,25 @@ using dealership_app.Fake_Data;
 
 namespace dealership_app.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    [ApiController]    
     public class CarRulesController : ControllerBase
     {
         [HttpGet]
+        [Route("/getrules")]
         public IEnumerable<CarRule> GetCarRules()
         {
             return CarRules.GetCarRules();
         }
 
-        [HttpPost("addcarrule")]
+        [HttpPost]
+        [Route("/postrule")]
         public void Post([FromBody] CarRule carRule)
         {
             CarRules.PostCarRule(carRule.name,carRule.startYear,carRule.endYear,carRule.make,carRule.model,carRule.color);
         }
 
-        [HttpDelete("deletecarrule")]
+        [HttpDelete]
+        [Route("/deleterule")]
         public void Delete([FromBody] CarRule carRule)
         {
             CarRules.DeleteCarRule(carRule.name);

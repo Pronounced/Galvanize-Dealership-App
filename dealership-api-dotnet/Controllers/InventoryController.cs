@@ -6,23 +6,25 @@ using dealership_app.Fake_Data;
 
 namespace dealership_app.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    [ApiController]  
     public class InventoryController : ControllerBase
     {
         [HttpGet]
+        [Route("/getcars")]
         public IEnumerable<Car> Get()
         {
             return Inventory.GetCars();
         }
 
-        [HttpPost("addcar")]
+        [HttpPost]
+        [Route("/postcar")]
         public void Post([FromBody]Car car)
         {
             Inventory.PostCar(car.year,car.make,car.model,car.seller,car.vin,car.isApproved,car.color);
         }
 
-        [HttpPut("updatecar")]
+        [HttpPut]
+        [Route("/putcar")]
         public void Put([FromBody] Car car)
         {
             Inventory.UpdateCar(car.isApproved, car.vin);

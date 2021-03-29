@@ -7,10 +7,10 @@ namespace dealership_app.Controllers
 {
     
     [ApiController]
-    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         [HttpGet]
+        [Route("/getusers")]
         public IEnumerable<User> GetEnumerable()
         {
             return Users.GetUsers();
