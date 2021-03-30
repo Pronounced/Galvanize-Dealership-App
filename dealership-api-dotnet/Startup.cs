@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using dealership_api_dotnet.Models;
+using Microsoft.Extensions.Options;
+using dealership_api_dotnet.Services;
+
 
 namespace my_new_app
 {
@@ -20,7 +24,15 @@ namespace my_new_app
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllers().AddNewtonsoftJson(o => o.UseMemberCasing());
+            services.Configure<DealershipDatabaseSettings>(
+                Configuration.GetSection(nameof(DealershipDatabaseSettings))
+            );
+
+            services.AddSingleton<IDealershipDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DealershipDatabaseSettings>>().Value);
+
+            services.AddSingleton<InventoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
