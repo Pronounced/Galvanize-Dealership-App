@@ -18,7 +18,7 @@
     "my_new_app": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:3001;http://localhost:3000",
+      "applicationUrl": "http://localhost:3001/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

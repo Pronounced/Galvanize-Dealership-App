@@ -25,8 +25,8 @@ namespace dealership_api_dotnet.Services
             return car;
         }
 
-        public void Put(Car car){
+        public void Put(Car car) =>
             _cars.ReplaceOne(element => element.vin == car.vin, car);
-        }
+        
     }
 }
