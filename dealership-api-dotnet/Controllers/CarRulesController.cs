@@ -1,33 +1,47 @@
 using System.Collections.Generic;
-using System.Text.Json;
-using dealership_app.Models;
+using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
-using dealership_app.Fake_Data;
+using dealership_api_dotnet.Services;
 
-namespace dealership_app.Controllers
+namespace dealership_api_dotnet.Controllers
 {
     [ApiController]    
     public class CarRulesController : ControllerBase
     {
+        private readonly CarRulesService _rulesService;
+
+        public CarRulesController(CarRulesService crService)
+        {
+            _rulesService = crService;
+        }
+
         [HttpGet]
         [Route("/getrules")]
-        public IEnumerable<CarRule> GetCarRules()
+        public ActionResult<List<CarRule>> GetCarRules()
         {
-            return CarRules.GetCarRules();
+            return _rulesService.Get();
         }
 
         [HttpPost]
         [Route("/postrule")]
-        public void Post([FromBody] CarRule carRule)
+        public ActionResult<CarRule> Post([FromBody] CarRule carRule)
         {
-            CarRules.PostCarRule(carRule.name,carRule.startYear,carRule.endYear,carRule.make,carRule.model,carRule.color);
+            _rulesService.Post(carRule);
+            return CreatedAtRoute("/getrules", new { id = carRule._id.ToString()}, carRule);
         }
 
         [HttpDelete]
         [Route("/deleterule")]
-        public void Delete([FromBody] CarRule carRule)
+        public IActionResult Delete([FromBody] CarRule carRule)
         {
-            CarRules.DeleteCarRule(carRule.name);
+            if(carRule == null)
+            {
+                return NotFound();
+            }
+
+            _rulesService.Delete(carRule);
+
+            return NoContent();
         }
     }
 }

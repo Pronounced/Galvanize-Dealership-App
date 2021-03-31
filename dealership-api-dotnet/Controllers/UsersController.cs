@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using dealership_api_dotnet.Services;
-using dealership_app.Fake_Data;
-using dealership_app.Models;
+using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dealership_app.Controllers
+namespace dealership_api_dotnet.Controllers
 {   
     [ApiController]
     public class UsersController : ControllerBase

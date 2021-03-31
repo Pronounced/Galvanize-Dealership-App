@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using dealership_app.Models;
+using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using dealership_api_dotnet.Services;
 
-namespace dealership_app.Controllers
+namespace dealership_api_dotnet.Controllers
 {
     [ApiController]  
     public class InventoryController : ControllerBase

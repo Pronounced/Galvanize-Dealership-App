@@ -37,11 +37,14 @@ namespace my_new_app
                 Configuration.GetSection(nameof(DealershipDatabaseSettings))
             );
 
+            services.AddSwaggerGen();
             services.AddSingleton<IDealershipDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DealershipDatabaseSettings>>().Value);
 
             services.AddSingleton<InventoryService>();
             services.AddSingleton<UsersService>();
+            services.AddSingleton<CarRulesService>();
+            services.AddTransient<MessagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,15 +63,23 @@ namespace my_new_app
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRouting();
             app.UseCors();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dealership API V1");
+                }
+            );
+
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{action=Get}/{id?}");
+                }
+            );
         }
     }
 }

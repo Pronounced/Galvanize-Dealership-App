@@ -1,6 +1,5 @@
-using dealership_app.Models;
-using MongoDB.Driver;
 using dealership_api_dotnet.Models;
+using MongoDB.Driver;
 using System.Collections.Generic;
 
 namespace dealership_api_dotnet.Services

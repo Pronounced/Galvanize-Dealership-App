@@ -1,28 +1,33 @@
 using System.Collections.Generic;
-using System.Text.Json;
-using dealership_app.Models;
+using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
-using dealership_app.Fake_Data;
+using dealership_api_dotnet.Services;
 
-namespace dealership_app.Controllers
+namespace dealership_api_dotnet.Controllers
 {
     [ApiController]
     public class MessagerController : ControllerBase
     {
+        private readonly MessagesService _messagesService;
+
+        public MessagerController(MessagesService mService)
+        {
+            _messagesService = mService;
+        }
+
         [HttpGet]
         [Route("/getmessages")]
-        public IEnumerable<Message> GetMessage()
+        public ActionResult<List<Message>> Get()
         {
-            return Messages.GetMessages();
+            return _messagesService.Get();
         }
 
         [HttpPost]
         [Route("/postmessage")]
-        public void Post([FromBody] Message message)
+        public ActionResult<Message> Post([FromBody] Message message)
         {
-            Messages.PostMessage(message.name, message.phoneNumber, message.email, message.message);
+            _messagesService.Post(message);
+            return CreatedAtRoute("/getmessages", new {id = message._id.ToString()}, message);
         }
-
-       
     }
 }

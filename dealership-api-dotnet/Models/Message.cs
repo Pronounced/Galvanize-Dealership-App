@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace dealership_app.Models
+namespace dealership_api_dotnet.Models
 {
     public class Message
     {
