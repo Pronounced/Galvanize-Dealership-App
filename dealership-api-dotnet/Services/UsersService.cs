@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
 using MongoDB.Driver;
 
 namespace dealership_api_dotnet.Services
 {
-    public class UsersService
+    public class UsersService : IServicesRepository<User>
     {
         private readonly IMongoCollection<User> _users;
 
@@ -16,7 +17,20 @@ namespace dealership_api_dotnet.Services
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
-        public List<User> Get() =>
+        public IEnumerable<User> Get() =>
             _users.Find(user => true).ToList();
+
+        public User Post(User user)
+        {
+            return user;
+        }
+
+        public void Put(User user){
+
+        }
+
+        public void Delete(User user){
+            
+        }
     }
 }

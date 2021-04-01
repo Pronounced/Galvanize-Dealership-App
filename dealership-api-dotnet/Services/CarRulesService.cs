@@ -1,10 +1,11 @@
+using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
 
 namespace dealership_api_dotnet.Services
 {
-    public class CarRulesService
+    public class CarRulesService : IServicesRepository<CarRule>
     {
         private readonly IMongoCollection<CarRule> _rules;
 
@@ -16,16 +17,19 @@ namespace dealership_api_dotnet.Services
             _rules = database.GetCollection<CarRule>(settings.RulesCollectionName);        
         }
 
-        public List<CarRule> Get() =>
+        public IEnumerable<CarRule> Get() =>
             _rules.Find(rule => true).ToList();
 
         public CarRule Post(CarRule rule){
             _rules.InsertOne(rule);
             return rule;
         }
-
         public void Delete(CarRule rule){
             _rules.DeleteOne(element => element._id == rule._id);
+        }
+
+        public void Put(CarRule rule){
+            
         }
     }
 }

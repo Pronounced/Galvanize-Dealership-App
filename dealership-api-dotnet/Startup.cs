@@ -7,9 +7,9 @@ using Microsoft.Extensions.Hosting;
 using dealership_api_dotnet.Models;
 using Microsoft.Extensions.Options;
 using dealership_api_dotnet.Services;
+using dealership_api_dotnet.Interfaces;
 
-
-namespace my_new_app
+namespace dealership_api_dotnet
 {
     public class Startup
     {
@@ -41,10 +41,11 @@ namespace my_new_app
             services.AddSingleton<IDealershipDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DealershipDatabaseSettings>>().Value);
 
-            services.AddSingleton<InventoryService>();
-            services.AddSingleton<UsersService>();
-            services.AddSingleton<CarRulesService>();
-            services.AddTransient<MessagesService>();
+            //services.AddSingleton<InventoryService>();
+            services.AddSingleton<IServicesRepository<User>, UsersService>();
+            services.AddSingleton<IServicesRepository<CarRule>, CarRulesService>();
+            services.AddSingleton<IServicesRepository<Message>, MessagesService>();
+            services.AddSingleton<IServicesRepository<Car>, InventoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

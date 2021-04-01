@@ -1,10 +1,12 @@
+using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 
 namespace dealership_api_dotnet.Services
 {
-    public class InventoryService
+    public class InventoryService : IServicesRepository<Car>
     {
         private readonly IMongoCollection<Car> _cars;
 
@@ -16,16 +18,21 @@ namespace dealership_api_dotnet.Services
             _cars = database.GetCollection<Car>(settings.InventoryCollectionName);
         }
 
-        public List<Car> Get() =>
-            _cars.Find(car => true).ToList();
+        public IEnumerable<Car> Get() 
+        {
+            return _cars.Find(car => true).ToList();
+        }
 
         public Car Post(Car car){
             _cars.InsertOne(car);
             return car;
         }
-
         public void Put(Car car) =>
             _cars.ReplaceOne(element => element.vin == car.vin, car);
+
+        public void Delete (Car car){
+            
+        }
         
     }
 }

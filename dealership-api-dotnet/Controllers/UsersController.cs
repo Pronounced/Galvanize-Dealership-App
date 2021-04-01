@@ -17,7 +17,7 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getusers")]
-        public ActionResult<List<User>> Get()
+        public IEnumerable<User> Get()
         {
             return _usersService.Get();
         }

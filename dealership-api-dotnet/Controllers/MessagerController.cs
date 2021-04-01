@@ -17,7 +17,7 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getmessages")]
-        public ActionResult<List<Message>> Get()
+        public IEnumerable<Message> Get()
         {
             return _messagesService.Get();
         }

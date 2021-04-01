@@ -1,33 +1,33 @@
 using System.Collections.Generic;
 using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
-using dealership_api_dotnet.Services;
+using dealership_api_dotnet.Interfaces;
 
 namespace dealership_api_dotnet.Controllers
 {
     [ApiController]  
     public class InventoryController : ControllerBase
     {
-        private readonly InventoryService _inventoryService;
+        private readonly IServicesRepository<Car> _invRepository;
 
-        public InventoryController(InventoryService iService)
+        public InventoryController(IServicesRepository<Car> iService)
         {
-            _inventoryService = iService;
+            _invRepository = iService;
         }
 
         [HttpGet]
         [Route("/getcars")]
-        public ActionResult<List<Car>> Get()
+        public IEnumerable<Car> Get()
         {
-            return _inventoryService.Get();
+            return _invRepository.Get();
         }
 
         [HttpPost]
         [Route("/postcar")]
-        public ActionResult<Car> Post([FromBody]Car car)
+        public Car Post([FromBody]Car car)
         {
-            _inventoryService.Post(car);
-            return CreatedAtRoute("/getcars", new { id = car._id.ToString()}, car);
+            _invRepository.Post(car);
+            return car;
         }
 
         [HttpPut]
@@ -39,7 +39,7 @@ namespace dealership_api_dotnet.Controllers
                 return NotFound();
             }
 
-            _inventoryService.Put(car);
+            _invRepository.Put(car);
 
             return NoContent();
         }
