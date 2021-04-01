@@ -5,7 +5,7 @@
       "name": "Launch Chrome",
       "request": "launch",
       "type": "pwa-chrome",
-      "url": "http://localhost:8080",
+      "url": "http://localhost:3002",
       "webRoot": "${workspaceFolder}"
     },
     {
@@ -55,6 +55,12 @@
       "netCore": {
         "appProject": "${workspaceFolder}/dealership-api-dotnet/my-new-app.csproj"
       }
+    },
+    {
+      "type": "pwa-node",
+      "name": "Run Current File",
+      "request": "launch",
+      "program": "${workspaceFolder}\\node-server\\index.js"
     }
   ]
 }

@@ -42,9 +42,9 @@ namespace dealership_api_dotnet
                 sp.GetRequiredService<IOptions<DealershipDatabaseSettings>>().Value);
 
             //services.AddSingleton<InventoryService>();
-            services.AddSingleton<IServicesRepository<User>, UsersService>();
+            services.AddSingleton<UsersService>();
             services.AddSingleton<IServicesRepository<CarRule>, CarRulesService>();
-            services.AddSingleton<IServicesRepository<Message>, MessagesService>();
+            services.AddSingleton<MessagesService>();
             services.AddSingleton<IServicesRepository<Car>, InventoryService>();
         }
 

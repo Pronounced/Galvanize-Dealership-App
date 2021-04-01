@@ -1,15 +1,43 @@
 version: '3.7'
 services:
-  dealership-app:
+  dealership-app-node:
     restart: always
     build: 
       context: ./dealership-app/ClientApp/
       dockerfile: Dockerfile
+      args:
+        REACT_APP_PORT: 3002
     ports:
       - '3000:3000'
     depends_on:
       - node-server
     tty: true
+
+  dealership-app-dotnet:
+    restart: always
+    build: 
+      context: ./dealership-app/ClientApp/
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_PORT: 3001
+    ports:
+      - '3005:3000'
+    depends_on:
+      - node-server
+    tty: true
+
+  dealership-api-dotnet:
+    restart: always
+    build:
+      context: ./dealership-api-dotnet
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   node-server:
     restart: always
@@ -17,7 +45,7 @@ services:
       context: ./node-server
       dockerfile: Dockerfile
     ports:
-      - '3001:3001'
+      - '3002:3002'
     links:
       - mongo
     environment:
