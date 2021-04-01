@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using dealership_api_dotnet.Interfaces;
+using System.Threading.Tasks;
 
 namespace dealership_api_dotnet.Controllers
 {
@@ -17,31 +18,23 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getcars")]
-        public IEnumerable<Car> Get()
+        public async Task<IEnumerable<Car>> Get()
         {
-            return _invRepository.Get();
+            return await _invRepository.Get();
         }
 
         [HttpPost]
         [Route("/postcar")]
-        public Car Post([FromBody]Car car)
+        public async Task Post([FromBody]Car car)
         {
-            _invRepository.Post(car);
-            return car;
+            await _invRepository.Post(car);
         }
 
         [HttpPut]
         [Route("/putcar")]
-        public IActionResult Put([FromBody] Car car)
+        public async Task Put([FromBody] Car car)
         {
-            if(car == null)
-            {
-                return NotFound();
-            }
-
-            _invRepository.Put(car);
-
-            return NoContent();
+            await _invRepository.Put(car);
         }
     }
 }

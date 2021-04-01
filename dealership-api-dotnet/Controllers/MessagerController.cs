@@ -2,32 +2,33 @@ using System.Collections.Generic;
 using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using dealership_api_dotnet.Services;
+using System.Threading.Tasks;
+using dealership_api_dotnet.Interfaces;
 
 namespace dealership_api_dotnet.Controllers
 {
     [ApiController]
     public class MessagerController : ControllerBase
     {
-        private readonly MessagesService _messagesService;
+        private readonly IServicesRepository<Message> _messagesRepository;
 
-        public MessagerController(MessagesService mService)
+        public MessagerController(IServicesRepository<Message> mService)
         {
-            _messagesService = mService;
+            _messagesRepository = mService;
         }
 
         [HttpGet]
         [Route("/getmessages")]
-        public IEnumerable<Message> Get()
+        public async Task<IEnumerable<Message>> Get()
         {
-            return _messagesService.Get();
+            return await _messagesRepository.Get();
         }
 
         [HttpPost]
         [Route("/postmessage")]
-        public ActionResult<Message> Post([FromBody] Message message)
+        public async Task Post([FromBody] Message message)
         {
-            _messagesService.Post(message);
-            return CreatedAtRoute("/getmessages", new {id = message._id.ToString()}, message);
+            await _messagesRepository.Post(message);
         }
     }
 }

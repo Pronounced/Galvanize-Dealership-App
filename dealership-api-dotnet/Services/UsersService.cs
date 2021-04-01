@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
 using MongoDB.Driver;
@@ -17,19 +18,19 @@ namespace dealership_api_dotnet.Services
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
-        public IEnumerable<User> Get() =>
-            _users.Find(user => true).ToList();
+        public async Task<IEnumerable<User>> Get() =>
+           _users.Find(user => true).ToList();
 
-        public User Post(User user)
+        public async Task Post(User user)
         {
-            return user;
+           await _users.InsertOneAsync(user);
         }
 
-        public void Put(User user){
+        public async Task Put(User user){
 
         }
 
-        public void Delete(User user){
+        public async Task Delete(User user){
             
         }
     }

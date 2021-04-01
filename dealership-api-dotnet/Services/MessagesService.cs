@@ -2,6 +2,7 @@ using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dealership_api_dotnet.Services
 {
@@ -17,18 +18,17 @@ namespace dealership_api_dotnet.Services
             _messages = database.GetCollection<Message>(settings.MessagesCollectionName);
         }
 
-        public IEnumerable<Message> Get() =>
+        public async Task<IEnumerable<Message>> Get() =>
             _messages.Find(message => true).ToList();
 
-        public Message Post(Message message){
-            _messages.InsertOne(message);
-            return message;
+        public async Task Post(Message message){
+            await _messages.InsertOneAsync(message);
         }
 
-        public void Put(Message message){
+        public async Task Put(Message message){
 
         }
-        public void Delete(Message message){
+        public async Task Delete(Message message){
             
         }
     }

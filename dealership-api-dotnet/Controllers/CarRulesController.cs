@@ -3,6 +3,7 @@ using dealership_api_dotnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using dealership_api_dotnet.Services;
 using dealership_api_dotnet.Interfaces;
+using System.Threading.Tasks;
 
 namespace dealership_api_dotnet.Controllers
 {
@@ -18,31 +19,23 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getrules")]
-        public IEnumerable<CarRule> GetCarRules()
+        public async Task<IEnumerable<CarRule>> Get()
         {
-            return _rulesRepository.Get();
+            return await _rulesRepository.Get();
         }
 
         [HttpPost]
         [Route("/postrule")]
-        public ActionResult<CarRule> Post([FromBody] CarRule carRule)
+        public async Task Post([FromBody] CarRule carRule)
         {
-            _rulesRepository.Post(carRule);
-            return CreatedAtRoute("/getrules", new { id = carRule._id.ToString()}, carRule);
+            await _rulesRepository.Post(carRule);
         }
 
         [HttpDelete]
         [Route("/deleterule")]
-        public IActionResult Delete([FromBody] CarRule carRule)
+        public async Task Delete([FromBody] CarRule carRule)
         {
-            if(carRule == null)
-            {
-                return NotFound();
-            }
-
-            _rulesRepository.Delete(carRule);
-
-            return NoContent();
+            await _rulesRepository.Delete(carRule);
         }
     }
 }

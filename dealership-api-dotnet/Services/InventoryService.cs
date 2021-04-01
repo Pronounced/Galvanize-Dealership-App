@@ -3,6 +3,7 @@ using dealership_api_dotnet.Models;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dealership_api_dotnet.Services
 {
@@ -18,19 +19,22 @@ namespace dealership_api_dotnet.Services
             _cars = database.GetCollection<Car>(settings.InventoryCollectionName);
         }
 
-        public IEnumerable<Car> Get() 
+        public async Task<IEnumerable<Car>> Get() 
         {
             return _cars.Find(car => true).ToList();
         }
 
-        public Car Post(Car car){
-            _cars.InsertOne(car);
-            return car;
+        public async Task Post(Car car){
+            await _cars.InsertOneAsync(car);
         }
-        public void Put(Car car) =>
-            _cars.ReplaceOne(element => element.vin == car.vin, car);
-
-        public void Delete (Car car){
+        public async Task Put(Car car){
+           var found = _cars.Find(element => element.vin == car.vin).ToList();
+           car._id = found[0]._id;
+           car.__v = 0;
+           await _cars.ReplaceOneAsync(element => element.vin == car.vin, car);
+        }
+           
+        public async Task Delete (Car car){
             
         }
         
