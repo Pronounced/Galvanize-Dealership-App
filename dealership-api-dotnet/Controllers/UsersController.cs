@@ -25,7 +25,7 @@ namespace dealership_api_dotnet.Controllers
         }
 
         [HttpPost]
-        [Route("/postusers")]
+        [Route("/postuser")]
         public async Task Post([FromBody]User user)
         {
             await _usersRepository.Post(user);
