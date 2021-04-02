@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,8 +37,8 @@ namespace dealership_api_dotnet
             );
 
             services.AddSwaggerGen();
-            services.AddSingleton<IDealershipDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<DealershipDatabaseSettings>>().Value);
+            services.AddSingleton<DealershipDatabaseSettings>(sp =>
+                sp.GetRequiredService<DealershipDatabaseSettings>());
 
             //services.AddSingleton<InventoryService>();
             services.AddSingleton<IServicesRepository<User>, UsersService>();

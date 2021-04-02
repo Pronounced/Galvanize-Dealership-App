@@ -11,7 +11,7 @@ namespace dealership_api_dotnet.Services
     {
         private readonly IMongoCollection<CarRule> _rules;
 
-        public CarRulesService(IOptions<IDealershipDatabaseSettings> settings)
+        public CarRulesService(IOptions<DealershipDatabaseSettings> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             var database = client.GetDatabase(settings.Value.DatabaseName);

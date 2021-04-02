@@ -10,7 +10,7 @@ namespace dealership_api_dotnet_test
     
     public class InventoryServiceTests
     {
-        private Mock<IOptions<IDealershipDatabaseSettings>> _mockOptions;
+        private Mock<IOptions<DealershipDatabaseSettings>> _mockOptions;
         private Mock<IMongoDatabase> _mockDB;
         private Mock<IMongoClient> _mockClient;
 
@@ -18,7 +18,7 @@ namespace dealership_api_dotnet_test
         {
             _mockClient = new Mock<IMongoClient>();
             _mockDB = new Mock<IMongoDatabase>();
-            _mockOptions = new Mock<IOptions<IDealershipDatabaseSettings>>();
+            _mockOptions = new Mock<IOptions<DealershipDatabaseSettings>>();
         }
 
         [Fact]
