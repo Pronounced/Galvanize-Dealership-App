@@ -1,5 +1,6 @@
 using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,15 +11,15 @@ namespace dealership_api_dotnet.Services
     {
         private readonly IMongoCollection<CarRule> _rules;
 
-        public CarRulesService(IDealershipDatabaseSettings settings)
+        public CarRulesService(IOptions<IDealershipDatabaseSettings> settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient(settings.Value.ConnectionString);
+            var database = client.GetDatabase(settings.Value.DatabaseName);
 
-            _rules = database.GetCollection<CarRule>(settings.RulesCollectionName);        
+            _rules = database.GetCollection<CarRule>(settings.Value.RulesCollectionName);        
         }
 
-        public async Task<IEnumerable<CarRule>> Get() =>
+        public IEnumerable<CarRule> Get() =>
             _rules.Find(rule => true).ToList();
 
         public async Task Post(CarRule rule){
@@ -29,7 +30,7 @@ namespace dealership_api_dotnet.Services
         }
 
         public async Task Put(CarRule rule){
-    
+            await _rules.ReplaceOneAsync(c => true, null);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace dealership_api_dotnet_test
             //Act
             var result = controller.Get();
             //Assert
-            Assert.IsType<Task<IEnumerable<Message>>>(result);
+            Assert.IsType<List<Message>>(result);
         }
 
-        private async Task<IEnumerable<Message>> GetTestMessages()
+        private IEnumerable<Message> GetTestMessages()
         {
             var messages = new List<Message>();
 

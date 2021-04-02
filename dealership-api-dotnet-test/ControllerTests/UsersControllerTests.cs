@@ -20,10 +20,10 @@ namespace dealership_api_dotnet_test
             //Act
             var result = controller.Get();
             //Assert
-            Assert.IsType<Task<IEnumerable<User>>>(result);
+            Assert.IsType<List<User>>(result);
         }
 
-        private async Task<IEnumerable<User>> GetTestUsers()
+        private IEnumerable<User> GetTestUsers()
         {
             var users = new List<User>();
             users.Add(new User(){

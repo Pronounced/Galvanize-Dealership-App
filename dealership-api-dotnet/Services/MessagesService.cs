@@ -1,5 +1,6 @@
 using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,15 +11,15 @@ namespace dealership_api_dotnet.Services
     {
         private readonly IMongoCollection<Message> _messages;
 
-        public MessagesService(IDealershipDatabaseSettings settings)
+        public MessagesService(IOptions<IDealershipDatabaseSettings> settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient(settings.Value.ConnectionString);
+            var database = client.GetDatabase(settings.Value.DatabaseName);
 
-            _messages = database.GetCollection<Message>(settings.MessagesCollectionName);
+            _messages = database.GetCollection<Message>(settings.Value.MessagesCollectionName);
         }
 
-        public async Task<IEnumerable<Message>> Get() =>
+        public IEnumerable<Message> Get() =>
             _messages.Find(message => true).ToList();
 
         public async Task Post(Message message){
@@ -26,10 +27,12 @@ namespace dealership_api_dotnet.Services
         }
 
         public async Task Put(Message message){
-
+            //Does Nothing
+            await _messages.ReplaceOneAsync(c => true, null);
         }
         public async Task Delete(Message message){
-            
+            //Does Nothing
+            await _messages.DeleteOneAsync(element => true);
         }
     }
 }

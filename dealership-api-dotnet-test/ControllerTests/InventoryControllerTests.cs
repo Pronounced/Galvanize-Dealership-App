@@ -20,23 +20,10 @@ namespace dealership_api_dotnet_test
             //Act
             var result = controller.Get();
             //Assert
-            Assert.IsType<Task<IEnumerable<Car>>>(result);
+            Assert.IsType<List<Car>>(result);
         }
 
-        //[Fact]
-        // public async Task TestName()
-        // {
-        //     //Given
-        //     var mockRepository = new Mock<IServicesRepository<Car>>();
-        //     mockRepository.Setup(repo => repo.Post(It.IsAny<Car>())).Returns(Task.CompletedTask).Verifiable();
-        //     var controller = new InventoryController(mockRepository.Object);
-
-        //     //When
-        //     Assert.
-        //     //Then
-        // }
-
-        private async Task<IEnumerable<Car>> GetTestInventory()
+        private IEnumerable<Car> GetTestInventory()
         {
             var cars = new List<Car>();
             cars.Add(new Car(){

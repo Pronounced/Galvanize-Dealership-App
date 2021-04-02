@@ -1,5 +1,6 @@
 using dealership_api_dotnet.Interfaces;
 using dealership_api_dotnet.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ namespace dealership_api_dotnet.Services
     {
         private readonly IMongoCollection<Car> _cars;
 
-        public InventoryService(IDealershipDatabaseSettings settings)
+        public InventoryService(IOptions<IDealershipDatabaseSettings> settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient(settings.Value.ConnectionString);
+            var database = client.GetDatabase(settings.Value.DatabaseName);
 
-            _cars = database.GetCollection<Car>(settings.InventoryCollectionName);
+            _cars = database.GetCollection<Car>(settings.Value.InventoryCollectionName);
         }
 
-        public async Task<IEnumerable<Car>> Get() 
+        public IEnumerable<Car> Get() 
         {
             return _cars.Find(car => true).ToList();
         }
@@ -35,7 +36,8 @@ namespace dealership_api_dotnet.Services
         }
            
         public async Task Delete (Car car){
-            
+            //Does Nothing
+            await _cars.DeleteOneAsync(element => true);
         }
         
     }

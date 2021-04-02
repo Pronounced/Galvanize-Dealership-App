@@ -18,9 +18,9 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getcars")]
-        public async Task<IEnumerable<Car>> Get()
+        public IEnumerable<Car> Get()
         {
-            return await _invRepository.Get();
+            return _invRepository.Get();
         }
 
         [HttpPost]

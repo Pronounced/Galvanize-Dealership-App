@@ -19,9 +19,9 @@ namespace dealership_api_dotnet.Controllers
 
         [HttpGet]
         [Route("/getmessages")]
-        public async Task<IEnumerable<Message>> Get()
+        public IEnumerable<Message> Get()
         {
-            return await _messagesRepository.Get();
+            return _messagesRepository.Get();
         }
 
         [HttpPost]
