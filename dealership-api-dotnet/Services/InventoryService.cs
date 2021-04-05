@@ -36,7 +36,6 @@ namespace dealership_api_dotnet.Services
         }
            
         public async Task Delete (Car car){
-            //Does Nothing
             await _cars.DeleteOneAsync(element => true);
         }
         

@@ -27,11 +27,9 @@ namespace dealership_api_dotnet.Services
         }
 
         public async Task Put(Message message){
-            //Does Nothing
             await _messages.ReplaceOneAsync(c => true, null);
         }
         public async Task Delete(Message message){
-            //Does Nothing
             await _messages.DeleteOneAsync(element => true);
         }
     }

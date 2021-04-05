@@ -28,12 +28,10 @@ namespace dealership_api_dotnet.Services
         }
 
         public async Task Put(User user){
-            //Does Nothing
             await _users.ReplaceOneAsync(c => true, null);
         }
 
         public async Task Delete(User user){
-            //Does Nothing
             await _users.DeleteOneAsync(element => true);
         }
     }
