@@ -3,7 +3,7 @@ services:
   dealership-app-node:
     restart: always
     build: 
-      context: ./dealership-app/ClientApp/
+      context: ./dealership-app/
       dockerfile: Dockerfile
       args:
         REACT_APP_PORT: 3002
@@ -16,7 +16,7 @@ services:
   dealership-app-dotnet:
     restart: always
     build: 
-      context: ./dealership-app/ClientApp/
+      context: ./dealership-app/
       dockerfile: Dockerfile
       args:
         REACT_APP_PORT: 3001
