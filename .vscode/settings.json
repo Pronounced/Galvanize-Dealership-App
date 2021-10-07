@@ -1,5 +1,5 @@
 {
     "git.ignoreLimitWarning": true,
-    "appService.defaultWebAppToDeploy": "/subscriptions/9f82bea1-f215-446a-b5e4-2614751d4e4f/resourceGroups/Dealership/providers/Microsoft.Web/sites/dealershipnodeapi",
+    "appService.defaultWebAppToDeploy": "/subscriptions/9f82bea1-f215-446a-b5e4-2614751d4e4f/resourceGroups/Dealership/providers/Microsoft.Web/sites/dealernodeapi",
     "appService.deploySubpath": "node-server",
 }
